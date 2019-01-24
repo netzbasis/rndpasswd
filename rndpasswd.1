@@ -1,0 +1,67 @@
+.\"	Copyright (c) 2019 Benjamin Baier <ben@netzbasis.de>
+.\"
+.\"	Permission to use, copy, modify, and distribute this software for any
+.\"	purpose with or without fee is hereby granted, provided that the above
+.\"	copyright notice and this permission notice appear in all copies.
+.\"
+.\"	THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+.\"	WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+.\"	MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+.\"	ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+.\"	WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+.\"	ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+.\"	OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+.\"
+.Dd $Mdocdate: January 10 2019 $
+.Dt RNDPASSWD 1
+.Os
+.Sh NAME
+.Nm rndpasswd
+.Nd create random passwords
+.Sh SYNOPSIS
+.Nm rndpasswd
+.Op Fl aenrs
+.Op Fl b Ar rounds
+.Op Fl l Ar length
+.Sh DESCRIPTION
+.Nm
+prints random strings to standard output.
+The default output is of length 12 and consists of alphanumeric and special
+characters.
+.Pp
+The options are as follows:
+.Bl -tag -width Ds
+.It Fl a
+Use alphabet characters.
+.It Fl b Ar rounds
+Rounds for bcrypt hashing (min: 4, max: 31, defaults to auto).
+This inferres -e.
+.It Fl e
+Output the encrypted password hash next to the string.
+.It Fl l Ar length
+Length of output (min: 1, max: 127).
+.It Fl n
+Use numbers.
+.It Fl r
+Repeatedly print new random strings.
+One per line.
+.It Fl s
+Use special characters.
+.El
+.Sh EXAMPLES
+Generate new htpasswd entry:
+.Pp
+.Dl "$ PLAIN=$(rndpasswd); echo username:$PLAIN | htpasswd"
+.Pp
+Create a list of 20 plaintext and encrypted passwords using only numbers:
+.Pp
+.Dl "$ rndpasswd -enr | head -n 20"
+.Sh SEE ALSO
+.Xr encrypt 1 ,
+.Xr htpasswd 1 ,
+.Xr arc4random 3 ,
+.Xr crypt_newhash 3
+.Sh CAVEATS
+The result is truely random, there is no metric that guarantees that alphabetic
+cahracter and/or numbers and/or special charaters are present in the generated
+string.
