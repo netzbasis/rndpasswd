@@ -1,11 +1,9 @@
 rndpasswd(1) utility
 
 Uses the OpenBSD build system and can be installed by
+
     $ make
     $ doas make install
-
-
-RNDPASSWD(1) - General Commands Manual
 
 # NAME
 
