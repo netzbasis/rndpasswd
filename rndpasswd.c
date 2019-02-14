@@ -79,6 +79,12 @@ main(int argc, char *argv[])
 		}
 	}
 
+	if (f_chars == 0) {
+		f_chars |= ALPHA;
+		f_chars |= NUM;
+		f_chars |= SPECIAL;
+	}
+
 	if (f_rounds) {
 		if ((pref = calloc(16, 1)) == NULL)
 			err(1, "calloc");
@@ -117,16 +123,16 @@ fail:
 static int
 check(char c, int flags)
 {
-	if (flags == 0 || flags & ALPHA)
+	if (flags & ALPHA)
 		if (('A' <= c && c <= 'Z') ||
 		    ('a' <= c && c <= 'z'))
 			return 1;
 
-	if (flags == 0 || flags & NUM)
+	if (flags & NUM)
 		if ('0' <= c && c <= '9')
 			return 1;
 
-	if (flags == 0 || flags & SPECIAL)
+	if (flags & SPECIAL)
 		switch(c) {
 		case '!':
 		case '#':
