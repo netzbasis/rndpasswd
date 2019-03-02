@@ -78,6 +78,10 @@ main(int argc, char *argv[])
 			usage();
 		}
 	}
+	argc -= optind;
+	argv += optind;
+	if (argc > 0)
+		usage();
 
 	if (f_chars == 0) {
 		f_chars |= ALPHA;
