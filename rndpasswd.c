@@ -137,20 +137,8 @@ check(char c, int flags)
 			return 1;
 
 	if (flags & SPECIAL)
-		switch(c) {
-		case '!':
-		case '#':
-		case '$':
-		case '%':
-		case '&':
-		case '*':
-		case '+':
-		case '-':
-		case '?':
-		case '@':
-		case '~':
+		if (strchr("!#$%&*+-?@~", c))
 			return 1;
-		}
 
 	return 0;
 }
